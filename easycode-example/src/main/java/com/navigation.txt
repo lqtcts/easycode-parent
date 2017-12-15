@@ -1,0 +1,26 @@
+address         百度地域接口
+annotation		自定义注解
+aop             多数据源注解实现
+chuanglan		创蓝短信接口
+concurrent		java并发编程
+customexception	自定义异常
+disruptor       BlockingQueue 是一个 FIFO 队列
+encrypt			加密签名
+excel           aop解析
+junittest		junit测试
+logread         日志读取
+pack			文件提取
+redistest		redis操作
+requestParse	解析request
+sftp			SFTP上传文件
+shiro			shiro权限
+socket
+stream
+timer			定时任务
+upload          文件上传
+utils			工具类
+webmagic        爬虫
+stream          storm
+org.mybatis.generator  dao 生成类
+zxing   google 二维码、条形码识别  生成
+participle      分词

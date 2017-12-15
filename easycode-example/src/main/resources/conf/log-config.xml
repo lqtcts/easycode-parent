@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<bean id="webLoginEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="login.do"/>
+		<property name="action" value="advertiserLogin"/>
+		<property name="module" value="" />
+		<property name="operate" value="0" />
+		<property name="remark" value="Web用户登录"/>
+	</bean>
+	<bean id="adminLoginEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="getAuthByUserName"/>
+		<property name="module" value="" />
+		<property name="operate" value="0" />
+		<property name="remark" value="Admin用户登录"/>
+	</bean>
+	
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~admin~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<bean id="addAdvertiserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiserManager.do"/>
+		<property name="action" value="addAdvertiser"/>
+		<property name="module" value="100" />
+		<property name="operate" value="1" />
+		<property name="remark" value="添加账户"/>
+	</bean>
+	<bean id="saveAdvertiserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiserManager.do"/>
+		<property name="action" value="saveAdvertiser"/>
+		<property name="module" value="100" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑账户"/>
+	</bean>
+	<bean id="delAdvertiserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiserManager.do"/>
+		<property name="action" value="delAdvertiser"/>
+		<property name="module" value="100" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除账户"/>
+	</bean>
+	<bean id="auditAdvertiserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiserManager.do"/>
+		<property name="action" value="auditAdvertiser"/>
+		<property name="module" value="100" />
+		<property name="operate" value="4" />
+		<property name="remark" value="账户审核资质"/>
+	</bean>
+	<bean id="changePWDAdvertiserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiserManager.do"/>
+		<property name="action" value="changePassword"/>
+		<property name="module" value="100" />
+		<property name="operate" value="2" />
+		<property name="remark" value="账户重置密码"/>
+	</bean>
+	<bean id="verifyAdvertisersEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiserManager.do"/>
+		<property name="action" value="verifyAdvertisers"/>
+		<property name="module" value="100" />
+		<property name="operate" value="4" />
+		<property name="remark" value="账户第三方审核"/>
+	</bean>
+	
+	<bean id="synAdvertiserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiserManager.do"/>
+		<property name="action" value="synchronizeAdvertiser"/>
+		<property name="module" value="101" />
+		<property name="operate" value="5" />
+		<property name="remark" value="广告主审核同步"/>
+	</bean>
+	
+	<bean id="launchAdCampaignEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="puton.do"/>
+		<property name="action" value="launchAdCampaign"/>
+		<property name="module" value="102" />
+		<property name="operate" value="6" />
+		<property name="remark" value="开始投放"/>
+	</bean>
+	<bean id="pauseAdCampaignEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="puton.do"/>
+		<property name="action" value="pauseAdCampaign"/>
+		<property name="module" value="102" />
+		<property name="operate" value="7" />
+		<property name="remark" value="暂停投放"/>
+	</bean>
+	<bean id="launchAllEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="puton.do"/>
+		<property name="action" value="launchAll"/>
+		<property name="module" value="102" />
+		<property name="operate" value="6" />
+		<property name="remark" value="批量开始投放"/>
+	</bean>
+	<bean id="setCampaignPaymentEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="audit.do"/>
+		<property name="action" value="setCampaignPayment"/>
+		<property name="module" value="102" />
+		<property name="operate" value="1" />
+		<property name="remark" value="设置计费方式"/>
+	</bean>
+	<bean id="setSelectedCampaignDiscountEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="audit.do"/>
+		<property name="action" value="setSelectedCampaignDiscount"/>
+		<property name="module" value="102" />
+		<property name="operate" value="1" />
+		<property name="remark" value="设置折扣"/>
+	</bean>
+	<bean id="launchAdGroupEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="puton.do"/>
+		<property name="action" value="launchAdGroup"/>
+		<property name="module" value="102" />
+		<property name="operate" value="6" />
+		<property name="remark" value="推广组开始投放"/>
+	</bean>
+	<bean id="pauseAdGroupEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="puton.do"/>
+		<property name="action" value="pauseAdGroup"/>
+		<property name="module" value="102" />
+		<property name="operate" value="7" />
+		<property name="remark" value="推广组暂停投放"/>
+	</bean>
+	<bean id="pausePutonByGroupidAndAdxidEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="puton.do"/>
+		<property name="action" value="pausePutonByGroupidAndAdxid"/>
+		<property name="module" value="102" />
+		<property name="operate" value="7" />
+		<property name="remark" value="暂停媒体投放"/>
+	</bean>
+	<bean id="startPutonByGroupidAndAdxidEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="puton.do"/>
+		<property name="action" value="startPutonByGroupidAndAdxid"/>
+		<property name="module" value="102" />
+		<property name="operate" value="6" />
+		<property name="remark" value="开始媒体投放"/>
+	</bean>
+	<bean id="setSelectedCreativeProportionEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="audit.do"/>
+		<property name="action" value="setSelectedCreativeProportion"/>
+		<property name="module" value="102" />
+		<property name="operate" value="1" />
+		<property name="remark" value="设置投占比"/>
+	</bean>
+	<bean id="updateCreativeDiscountsEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="audit.do"/>
+		<property name="action" value="updateCreativeDiscounts"/>
+		<property name="module" value="102" />
+		<property name="operate" value="2" />
+		<property name="remark" value="修改创意折扣"/>
+	</bean>
+	<bean id="auditCreativeEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="audit.do"/>
+		<property name="action" value="auditCreative"/>
+		<property name="module" value="102" />
+		<property name="operate" value="1" />
+		<property name="remark" value="审核创意"/>
+	</bean>
+	<bean id="submitAuditEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="preAudit.do"/>
+		<property name="action" value="submitAudit"/>
+		<property name="module" value="102" />
+		<property name="operate" value="4" />
+		<property name="remark" value="第三方审核"/>
+	</bean>
+	<bean id="syncAuditResultEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="preAudit.do"/>
+		<property name="action" value="syncAuditResult"/>
+		<property name="module" value="102" />
+		<property name="operate" value="5" />
+		<property name="remark" value="同步第三方审核"/>
+	</bean>
+	
+	<bean id="addAdxEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="addAdx"/>
+		<property name="module" value="103" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增平台"/>
+	</bean>
+	<bean id="updateAdxEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="updateAdx"/>
+		<property name="module" value="103" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更新平台"/>
+	</bean>
+	<bean id="deleteAdxEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="deleteAdx"/>
+		<property name="module" value="103" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除平台"/>
+	</bean>
+	<bean id="changeAdxStatusEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="changeAdxStatus"/>
+		<property name="module" value="103" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更改平台状态"/>
+	</bean>
+	<bean id="updateSSPEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="updateSSP"/>
+		<property name="module" value="103" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更新SSP"/>
+	</bean>
+	<bean id="addfirstCategoryEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="addfirstCategory"/>
+		<property name="module" value="103" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新建SSP一级分类"/>
+	</bean>
+	<bean id="addsecondCategoryEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="addsecondCategory"/>
+		<property name="module" value="103" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新建SSP二级分类"/>
+	</bean>
+	<bean id="addthirdCategoryEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="addthirdCategory"/>
+		<property name="module" value="103" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新建SSP三级分类"/>
+	</bean>
+	<bean id="addSizeEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="addSize"/>
+		<property name="module" value="103" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增尺寸"/>
+	</bean>
+	<bean id="deleteSizeEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="deleteSize"/>
+		<property name="module" value="103" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除尺寸"/>
+	</bean>
+	<bean id="updateSizeEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adx.do"/>
+		<property name="action" value="updateSize"/>
+		<property name="module" value="103" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更新尺寸"/>
+	</bean>
+
+	<bean id="advRechargeEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="financial.do"/>
+		<property name="action" value="advRecharge"/>
+		<property name="module" value="104" />
+		<property name="operate" value="8" />
+		<property name="remark" value="充值"/>
+	</bean>
+	
+	<bean id="addUserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="userManage.do"/>
+		<property name="action" value="addUser"/>
+		<property name="module" value="104" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增用户"/>
+	</bean>
+	<bean id="editUserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="userManage.do"/>
+		<property name="action" value="editUser"/>
+		<property name="module" value="104" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更新用户"/>
+	</bean>
+	<bean id="updateUserPwdEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="userManage.do"/>
+		<property name="action" value="updateUserPwd"/>
+		<property name="module" value="104" />
+		<property name="operate" value="2" />
+		<property name="remark" value="重置密码"/>
+	</bean>
+	<bean id="updateUserStatusEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="userManage.do"/>
+		<property name="action" value="updateUserStatus"/>
+		<property name="module" value="104" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更改用户状态"/>
+	</bean>
+	<bean id="delUserEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="userManage.do"/>
+		<property name="action" value="delUser"/>
+		<property name="module" value="104" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除用户"/>
+	</bean>
+
+	<bean id="addRoleEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="addRole"/>
+		<property name="module" value="105" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增角色"/>
+	</bean>
+	<bean id="editRoleEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="editRole"/>
+		<property name="module" value="105" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑角色"/>
+	</bean>
+	<bean id="delRoleEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="delRole"/>
+		<property name="module" value="105" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除角色"/>
+	</bean>
+	<bean id="addModuleEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="addModule"/>
+		<property name="module" value="105" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增模块"/>
+	</bean>
+	<bean id="editModuleEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="editModule"/>
+		<property name="module" value="105" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑模块"/>
+	</bean>
+	<bean id="delModuleEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="delModule"/>
+		<property name="module" value="105" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除模块"/>
+	</bean>
+	<bean id="addAuthEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="addAuth"/>
+		<property name="module" value="105" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增权限"/>
+	</bean>
+	<bean id="editAuthEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="editAuth"/>
+		<property name="module" value="105" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑权限"/>
+	</bean>
+	<bean id="delAuthEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="authManageController.do"/>
+		<property name="action" value="delAuth"/>
+		<property name="module" value="105" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除权限"/>
+	</bean>
+	<bean id="insertThirdCompanyEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="thirdPartyCompany.do"/>
+		<property name="action" value="insertThirdCompany"/>
+		<property name="module" value="107" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增三方公司"/>
+	</bean>
+	<bean id="updateThirdCompanyEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="thirdPartyCompany.do"/>
+		<property name="action" value="updateThirdCompany"/>
+		<property name="module" value="107" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑三方公司"/>
+	</bean>
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~web~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<bean id="addAdCampaignEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adCampaign.do"/>
+		<property name="action" value="addAdCampaign"/>
+		<property name="module" value="200" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增推广计划"/>
+	</bean>
+	<bean id="editAdCampaignEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adCampaign.do"/>
+		<property name="action" value="editAdCampaign"/>
+		<property name="module" value="200" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更新推广计划"/>
+	</bean>
+	<bean id="copyAdCampaignEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adCampaign.do"/>
+		<property name="action" value="copyAdCampaign"/>
+		<property name="module" value="200" />
+		<property name="operate" value="1" />
+		<property name="remark" value="复制推广计划"/>
+	</bean>
+	<bean id="launchAllAdGroupEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="launchAll"/>
+		<property name="module" value="200" />
+		<property name="operate" value="4" />
+		<property name="remark" value="开始投放"/>
+	</bean>
+	<bean id="deleteAdCampaignEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adCampaign.do"/>
+		<property name="action" value="deleteAdCampaign"/>
+		<property name="module" value="200" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除推广计划"/>
+	</bean>
+	
+	<bean id="addDestionUrlEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="addDestionUrl"/>
+		<property name="module" value="201" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增目标地址"/>
+	</bean>
+	<bean id="editNameAndTypeOfGroupEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="editNameAndTypeOfGroup"/>
+		<property name="module" value="201" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑推广组基本信息"/>
+	</bean>
+	<bean id="addNameAndTypeOfGroupEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="addNameAndTypeOfGroup"/>
+		<property name="module" value="201" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增推广组基本信息"/>
+	</bean>
+	<bean id="deleteGroupEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="deleteGroup"/>
+		<property name="module" value="201" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除推广组"/>
+	</bean>
+	<bean id="importAdGroupByExcelEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="importAdGroupByExcel"/>
+		<property name="module" value="201" />
+		<property name="operate" value="1" />
+		<property name="remark" value="批量导入推广组"/>
+	</bean>
+	<bean id="editAdGroupTargetEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="editAdGroupTarget"/>
+		<property name="module" value="201" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑推广组定向信息"/>
+	</bean>
+	<bean id="addAdGroupTargetEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="addAdGroupTarget"/>
+		<property name="module" value="201" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增推广组定向信息"/>
+	</bean>
+	<bean id="editAdGroupPricingEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="editAdGroupPricing"/>
+		<property name="module" value="201" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑推广组定价信息"/>
+	</bean>
+	<bean id="addAdGroupPricingEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adGroup.do"/>
+		<property name="action" value="addAdGroupPricing"/>
+		<property name="module" value="201" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增推广组定价信息"/>
+	</bean>
+
+	<bean id="addSourceEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="source.do"/>
+		<property name="action" value="addSource"/>
+		<property name="module" value="202" />
+		<property name="operate" value="1" />
+		<property name="remark" value="上传创意"/>
+	</bean>
+	<bean id="addAdCreativeEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adCreative.do"/>
+		<property name="action" value="addAdCreative"/>
+		<property name="module" value="202" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增创意信息"/>
+	</bean>
+	<bean id="addInformationflowCreativeEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="adPlace.do"/>
+		<property name="action" value="addInformationflowCreative"/>
+		<property name="module" value="202" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增信息流创意信息"/>
+	</bean>
+	<bean id="addInformationFlowSourceCreativeEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="source.do"/>
+		<property name="action" value="addInformationFlowSource"/>
+		<property name="module" value="202" />
+		<property name="operate" value="1" />
+		<property name="remark" value="上传信息流创意"/>
+	</bean>
+
+	<bean id="saveAdvertiserWebEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiser.do"/>
+		<property name="action" value="saveAdvertiser"/>
+		<property name="module" value="203" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更新个人基本信息"/>
+	</bean>
+	<bean id="addAdvertiserWebEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiser.do"/>
+		<property name="action" value="addAdvertiser"/>
+		<property name="module" value="203" />
+		<property name="operate" value="1" />
+		<property name="remark" value="新增个人基本信息"/>
+	</bean>
+	<bean id="updateChildAccountStatusEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiser.do"/>
+		<property name="action" value="updateChildAccountStatus"/>
+		<property name="module" value="203" />
+		<property name="operate" value="2" />
+		<property name="remark" value="账户状态变更"/>
+	</bean>
+	<bean id="deleteChildAccountEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiser.do"/>
+		<property name="action" value="deleteChildAccount"/>
+		<property name="module" value="203" />
+		<property name="operate" value="3" />
+		<property name="remark" value="删除账户"/>
+	</bean>
+	<bean id="changePasswordEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="advertiser.do"/>
+		<property name="action" value="changePassword"/>
+		<property name="module" value="203" />
+		<property name="operate" value="2" />
+		<property name="remark" value="更改密码"/>
+	</bean>
+	<bean id="editThirdPartyMonitorEvent" class="com.pxene.dsp.archer.logs.LogEvents">
+		<property name="path" value="thirdPartyMonitor.do"/>
+		<property name="action" value="editThirdPartyMonitor"/>
+		<property name="module" value="204" />
+		<property name="operate" value="2" />
+		<property name="remark" value="编辑第三方监测数据"/>
+	</bean>
+</beans>

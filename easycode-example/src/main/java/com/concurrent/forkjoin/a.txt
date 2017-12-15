@@ -1,0 +1,19 @@
+Fork/Join框架
+
+
+Fork/Join框架中的主要类
+分而治之策略
+Fork/Join框架案例
+
+
+
+ForkJoinTask<V>：描述任务的抽象类
+ForkJoinPool：管理ForkJoinTask的线程池
+RecursiveAction：ForkJoinTask子类，描述无返回值的任务
+RecursiveTask<V>: ForkJoinTask子类，描述有返回值的任务
+
+
+
+将任务递归划分成更小的子任务，直到子任务足够小，从而能够被连续地处理掉为止
+优势是处理过程可以使用并行发生，这种情况特别适合基于多核处理器的并行编程
+根据Java API中定义，分而治之的建议临界点定义在100-1000个操作中的某个位置

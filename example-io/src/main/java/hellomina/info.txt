@@ -1,0 +1,45 @@
+Apache Mina是一个能够帮助用户开发高性能和高伸缩性网络应用程序的框架。它通过Java nio技术基于TCP/IP和UDP/IP协议提供了抽象的、事件驱动的、异步的API。
+
+mina比netty出现的早，都是Trustin Lee的作品
+Netty 和 Mina 究竟该选择哪个？
+无论选择哪个，都是个正确的选择。两者各有千秋，Netty 在内存管理方面更胜一筹，综合性能也更优。
+但是，API 变更的管理和兼容性做的不是太好。
+相比于 Netty，Mina 的前向兼容性、内聚的可维护性功能更多，例如 JMX 的集成、性能统计、状态机等。
+      
+--优点：
+– 异步 
+– 无阻塞 
+– 事件驱动 
+– 支持TCP, UDP, APR, 串口… 
+– 通过 过滤器（Filters）实现扩展性 
+– 同时提供协议框架
+
+---------Mina包简介：
+org.apache.mina.core.buffer	用于缓冲区的IoBuffer
+org.apache.mina.core.service
+org.apache.mina.transport.*	用于提供连接的service
+org.apache.mina.core.session	用于提供两端状态的session
+org.apache.mina.core.filterchain
+org.apache.mina.filter.*	用于拦截所有IO事件和请求的filter chain和各类拦截器（在IoService和IoHandler之间）
+org.apache.mina.handler.*	用于处理IO事件的handler
+org.apache.mina.core.future	用于实现异步IO操作的 future
+org.apache.mina.core.polling	用于实现IO轮询的的polling
+org.apache.mina.proxy.*	用于实现代理的proxy
+
+-----------Mina几个重要接口：
+IoServiece ：这个接口在一个线程上负责套接字的建立，拥有自己的 Selector，监听是否有连接被建立。
+IoProcessor ：这个接口在另一个线程上负责检查是否有数据在通道上读写，也就是说它也拥有自己的 Selector，这是与我们使用 JAVA NIO 编码时的一个不同之处，通常在 JAVA NIO 编码中，我们都是使用一个 Selector，也就是不区分 IoService与 IoProcessor 两个功能接口。另外，IoProcessor 负责调用注册在 IoService 上的过滤器，并在过滤器链之后调用 IoHandler。  
+IoAccepter ：相当于网络应用程序中的服务器端
+IoConnector ：相当于客户端
+IoSession ：当前客户端到服务器端的一个连接实例
+IoHandler ：这个接口负责编写业务逻辑，也就是接收、发送数据的地方。这也是实际开发过程中需要用户自己编写的部分代码。
+IoFilter ：过滤器用于悬接通讯层接口与业务层接口，这个接口定义一组拦截器，这些拦截器可以包括日志输出、黑名单过滤、数据的编码（write 方向）与解码（read 方向）等功能，其中数据的 encode与 decode是最为重要的、也是你在使用 Mina时最主要关注的地方。
+
+------ IoHandler 接口中具有如下一些方法 
+void exceptionCaught(IoSession session, Throwable cause)    当接口中其他方法抛出异常未被捕获时触发此方法
+void messageReceived(IoSession session, Object message)    当接收到客户端的请求信息后触发此方法
+void messageSent(IoSession session, Object message)    当信息已经传送给客户端后触发此方法
+void sessionClosed(IoSession session)       当连接被关闭时触发，例如客户端程序意外退出等等
+void sessionCreated(IoSession session)  当一个新客户端连接后触发此方法
+void sessionIdle(IoSession session, IdleStatus status)  当连接空闲时触发此方法
+void sessionOpened(IoSession session)   当连接后打开时触发此方法，一般此方法与 sessionCreated 会被同时触发

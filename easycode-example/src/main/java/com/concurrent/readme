@@ -1,0 +1,15 @@
+http://www.cnblogs.com/sunhan/p/3817806.html
+
+
+
+FutureTask		一个可取消的异步计算
+CountDownLatch	同步计数器。
+Semaphore		计数信号量,好比一个停车场，能放10辆车，别的车就要在外面等待
+CyclicBarrier	同步辅助类,等够3个人的时候才能玩斗地主
+ScheduledThreadPoolExecutor		定时器
+BlockingQueue		当队列达到容量时候，会自动阻塞的, 当队列为空时，也会自动阻塞
+Exchanger			Exchanger用于在2个线程中交换对象
+DelayQueue		操作需要判断延时时间是否到了
+BlockingQueue	这个队列其实是BlockingQueue的一种实现。每个插入操作必须等待另一个线程的对应移除操作，反之亦然
+
+Phaser  同步器 多阶段  上菜
